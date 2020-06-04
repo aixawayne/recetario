@@ -6,9 +6,11 @@ app.use(express.json());// para reconocer los requests como jasons, built in met
 
 const recetas = [
 
-{name: 'Arroz con Pollo', id: 1},
-{name: 'Brownie', id: 2},
-{name: 'Ñoquis de Batata', id: 3},
+{name: 'Arroz con Pollo', id: 1, pasos: ['picar cebolla','cortar tomate'], ingredientes: [{nombre:'cebolla', cantidad:500},{nombre:'tomate', cantidad:1000}]},
+
+{name: 'Brownie', id: 2, pasos: ['cortar chocolate','derretir manteca'], ingredientes: [{nombre:'manteca', cantidad:500},{nombre:'chocolate', cantidad:1000}]},
+
+{name: 'Ñoquis de Batata', id: 3, pasos: ['pelar batata','agregar harina'], ingredientes: [{nombre:'batata', cantidad:500},{nombre:'harina', cantidad:2000}]},
 
 ]
 
