@@ -124,18 +124,19 @@ h3 {text-align: center;}
 
 <h2>Recetario</h2>
 
-<input class="center-block" type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar..." title="buscar">
+
 
 <h3 ><a href="valoraciones">Ver valoraciones</a></h3>
 
 <div id="app">
+<input class="center-block" type="text" id="myInput"  v-model="search" placeholder="Buscar..." title="buscar">
 <table id="myTable">
   <tr class="header">
     <th style="width:60%;">Receta</th>
     <th style="width:40%;">Puntaje</th>
   </tr>
-  <tr v-for="receta in recetas">
-    <td>{{ receta.name  }}</td>
+  <tr v-for="receta in filteredRecetas">
+     <td>{{ receta.name  }}</td> <!-- TODO: considerar ingredientes ademas de nombres de recetas -->
     <td> 1 </td>
   </tr>
   
@@ -149,6 +150,7 @@ h3 {text-align: center;}
 var app = new Vue({
   el: '#app',
   data: {
+    search: '',
     recetas: [
       {name: 'arroz con pollo', id: 1, pasos: ['picar cebolla','cortar tomate'], ingredientes: [{nombre:'cebolla', cantidad:500},{nombre:'tomate', cantidad:1000}]},
 
@@ -156,27 +158,19 @@ var app = new Vue({
 
       {name: 'fideos de batata', id: 3, pasos: ['pelar batata','agregar harina'], ingredientes: [{nombre:'batata', cantidad:500},{nombre:'harina', cantidad:2000}]},
     ]
+  },
+
+  computed: {
+    filteredRecetas() {
+      return this.recetas.filter(receta => {
+         return receta.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+      })
+    }
   }
+
 })
 
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
+
 </script>
 
 
