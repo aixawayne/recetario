@@ -3,6 +3,7 @@ const app = express(); // crear instancia
 const Joi = require('@hapi/joi'); //agregar modulo joi, usamos joi para data validation
 
 app.use(express.json());// para reconocer los requests como jsons, built in method dentro de express
+app.use('/public', express.static('views')); 
 
 const recetas = [
 
@@ -19,7 +20,8 @@ const recetas = [
 //READ
 app.get('/', (req,res) =>{
 
-	res.send('holis'); //respuesta
+ res.writeHead(302, { 'Location': 'public/home.html'});
+ res.end();  //respuesta
 
 }) //llamamos al metodo GET para la variable APP que creamos arriba. Especificamos la ruta. 
 //req es el request object, contiene la info del HTTP request. El objeto res es la respuesta http que manda express cuando tiene un http request
