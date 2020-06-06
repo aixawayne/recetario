@@ -2,9 +2,11 @@
 <html>
 
 <head>
-	<title> Recetario </title>
+<title> Recetario </title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://unpkg.com/vue"></script>
+
 <style>
 * {
   box-sizing: border-box;
@@ -126,29 +128,34 @@ h3 {text-align: center;}
 
 <h3 ><a href="valoraciones">Ver valoraciones</a></h3>
 
+<div id="app">
 <table id="myTable">
   <tr class="header">
     <th style="width:60%;">Receta</th>
     <th style="width:40%;">Puntaje</th>
   </tr>
-  <tr>
-    <td>arroz con pollo</td>
-    <td>4.3</td>
-  </tr>
-  <tr>
-    <td>brownie</td>
-    <td>4.6</td>
-  </tr>
-  <tr>
-    <td>fideos de batata</td>
-    <td>3</td>
+  <tr v-for="todo in todos">
+    <td>{{ todo.text }}</td>
   </tr>
   
 </table>
+</div>
 
- </div>
+ 
 
 <script>
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    todos: [
+      { text: 'arroz con pollo' },
+      { text: 'brownies' },
+      { text: 'fideos de batata' }
+    ]
+  }
+})
+
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
