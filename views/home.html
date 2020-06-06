@@ -134,8 +134,9 @@ h3 {text-align: center;}
     <th style="width:60%;">Receta</th>
     <th style="width:40%;">Puntaje</th>
   </tr>
-  <tr v-for="todo in todos">
-    <td>{{ todo.text }}</td>
+  <tr v-for="receta in recetas">
+    <td>{{ receta.name  }}</td>
+    <td> 1 </td>
   </tr>
   
 </table>
@@ -148,10 +149,12 @@ h3 {text-align: center;}
 var app = new Vue({
   el: '#app',
   data: {
-    todos: [
-      { text: 'arroz con pollo' },
-      { text: 'brownies' },
-      { text: 'fideos de batata' }
+    recetas: [
+      {name: 'arroz con pollo', id: 1, pasos: ['picar cebolla','cortar tomate'], ingredientes: [{nombre:'cebolla', cantidad:500},{nombre:'tomate', cantidad:1000}]},
+
+      {name: 'brownie', id: 2, pasos: ['cortar chocolate','derretir manteca'], ingredientes: [{nombre:'manteca', cantidad:500},{nombre:'chocolate', cantidad:1000}]},
+
+      {name: 'fideos de batata', id: 3, pasos: ['pelar batata','agregar harina'], ingredientes: [{nombre:'batata', cantidad:500},{nombre:'harina', cantidad:2000}]},
     ]
   }
 })
