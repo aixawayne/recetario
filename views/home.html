@@ -188,20 +188,30 @@ h3 {text-align: center;}
 
     <!-- Tab links -->
     <div class="tab">
-      <button class="tablinks" onclick="openTab(event, 'Ingredientes')">Ingredientes</button>
-      <button class="tablinks" onclick="openTab(event, 'Pasos')">Pasos</button>
+      <button class="tablinks" @click="displayIngredientes()">Ingredientes</button>
+      <button class="tablinks" @click="displayPasos()">Pasos</button>
 
     </div>
 
     <!-- Tab content -->
-    <div id="Ingredientes" class="tabcontent">
-      <h3>Ingredientes</h3>
-      <p>lista de ingredientes</p>
+   <div   v-show="showIngredientes">
+      <h3> Ingredientes </h3>
+      <ul>
+        <li v-for="ingrediente in selectedRecipe.ingredientes"> 
+          {{ingrediente.nombre}} - {{ingrediente.cantidad}}g
+        </li>
+
+      </ul>
     </div>
 
-    <div id="Pasos" class="tabcontent">
+    <div v-show="showPasos">
       <h3>Pasos</h3>
-      <p>lista de pasos</p>
+      <ul>
+        <li v-for="paso in selectedRecipe.pasos"> 
+          {{paso}} 
+        </li>
+
+      </ul>
     </div>
 
 
@@ -226,6 +236,8 @@ var app = new Vue({
   data: {
     search: '',
     selectedRecipeIndex : -1,
+    showIngredientes: true,
+    showPasos: false,
     recetas: [
       {name: 'arroz con pollo', id: 1, pasos: ['picar cebolla','cortar tomate'], ingredientes: [{nombre:'cebolla', cantidad:500},{nombre:'tomate', cantidad:1000}]},
 
@@ -246,35 +258,23 @@ var app = new Vue({
           return this.recetas[this.selectedRecipeIndex]
     }
 
-  }
+  },
+
+  methods: {
+
+    displayIngredientes: function() {
+      this.showIngredientes = true;
+      this.showPasos= false
+    },
+
+    displayPasos: function() {
+      this.showIngredientes = false;
+      this.showPasos= true
+    }
+}
 
 })
 
-
-
-
-    ////////////////
-/*
-    function openTab(evt, openTab) {
-  // Declare all variables
-  var i, tabcontent, tablinks;
-
-  // Get all elements with class="tabcontent" and hide them
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-
-  // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-
-  // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(openTab).style.display = "block";
-  evt.currentTarget.className += " active";
-}*/
 
 </script>
 
