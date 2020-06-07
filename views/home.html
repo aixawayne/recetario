@@ -155,7 +155,7 @@ h3 {text-align: center;}
     </g>
   </svg>
 
-  <div class="wrapper" >
+<div class="wrapper" v-if="selectedRecipeIndex < 0">
 
 <h2>Recetario</h2>
 
@@ -181,7 +181,7 @@ h3 {text-align: center;}
 </br>
 </br>
 <div class="wrapper"  v-if="selectedRecipeIndex >=0">
-    <h2>Nombre Receta</h2>
+    <h2> {{selectedRecipe.name }} </h2>
     <p></p>
     
 
@@ -225,6 +225,7 @@ var app = new Vue({
   el: '#app',
   data: {
     search: '',
+    selectedRecipeIndex : -1,
     recetas: [
       {name: 'arroz con pollo', id: 1, pasos: ['picar cebolla','cortar tomate'], ingredientes: [{nombre:'cebolla', cantidad:500},{nombre:'tomate', cantidad:1000}]},
 
@@ -239,30 +240,21 @@ var app = new Vue({
       return this.recetas.filter(receta => {
          return receta.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
       })
+    },
+
+    selectedRecipe() {
+          return this.recetas[this.selectedRecipeIndex]
     }
+
   }
 
 })
 
 
 
- const AllRadioButtonSelector = ".rating input";
-    const radioButtons = document.querySelectorAll(AllRadioButtonSelector);
-
-    function printWhenRadioButtonChanges(event) {
-      let button = event.target;
-      console.log(`radio button ${button.value} is selected`);
-    };
-
-    radioButtons.forEach(e => e.addEventListener("change", printWhenRadioButtonChanges));
-
-
-
-
-
 
     ////////////////
-
+/*
     function openTab(evt, openTab) {
   // Declare all variables
   var i, tabcontent, tablinks;
@@ -282,7 +274,7 @@ var app = new Vue({
   // Show the current tab, and add an "active" class to the button that opened the tab
   document.getElementById(openTab).style.display = "block";
   evt.currentTarget.className += " active";
-}
+}*/
 
 </script>
 
