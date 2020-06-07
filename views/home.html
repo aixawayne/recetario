@@ -91,6 +91,39 @@ html {
   display: block;
 }
 
+ .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+    }
+
+    /* Style the buttons that are used to open the tab content */
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+      background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+      background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-top: none;
 
 
 h3 {text-align: center;}
@@ -102,6 +135,8 @@ h3 {text-align: center;}
 
 
 <body>
+
+  <div id="app">
 
 	 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px"
     viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
@@ -120,7 +155,7 @@ h3 {text-align: center;}
     </g>
   </svg>
 
-  <div class="wrapper">
+  <div class="wrapper" >
 
 <h2>Recetario</h2>
 
@@ -128,8 +163,8 @@ h3 {text-align: center;}
 
 <h3 ><a href="valoraciones">Ver valoraciones</a></h3>
 
-<div id="app">
-<input class="center-block" type="text" id="myInput"  v-model="search" placeholder="Buscar..." title="buscar">
+
+<input class="center-block" type="text" id="myInput"  v-model="search" placeholder="Buscar..." title="buscar" selectedRecipeIndex = -1>
 <table id="myTable">
   <tr class="header">
     <th style="width:60%;">Receta</th>
@@ -141,9 +176,48 @@ h3 {text-align: center;}
   </tr>
   
 </table>
-</div>
 
+</div>
+</br>
+</br>
+<div class="wrapper"  v-if="selectedRecipeIndex >=0">
+    <h2>Nombre Receta</h2>
+    <p></p>
+    
+
+
+    <!-- Tab links -->
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'Ingredientes')">Ingredientes</button>
+      <button class="tablinks" onclick="openTab(event, 'Pasos')">Pasos</button>
+
+    </div>
+
+    <!-- Tab content -->
+    <div id="Ingredientes" class="tabcontent">
+      <h3>Ingredientes</h3>
+      <p>lista de ingredientes</p>
+    </div>
+
+    <div id="Pasos" class="tabcontent">
+      <h3>Pasos</h3>
+      <p>lista de pasos</p>
+    </div>
+
+
+
+    <div class="rating">
+      <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+      <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+      <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+      <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+      <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+    </div>
+
+
+  </div>
  
+ </div>
 
 <script>
 
@@ -170,6 +244,45 @@ var app = new Vue({
 
 })
 
+
+
+ const AllRadioButtonSelector = ".rating input";
+    const radioButtons = document.querySelectorAll(AllRadioButtonSelector);
+
+    function printWhenRadioButtonChanges(event) {
+      let button = event.target;
+      console.log(`radio button ${button.value} is selected`);
+    };
+
+    radioButtons.forEach(e => e.addEventListener("change", printWhenRadioButtonChanges));
+
+
+
+
+
+
+    ////////////////
+
+    function openTab(evt, openTab) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(openTab).style.display = "block";
+  evt.currentTarget.className += " active";
+}
 
 </script>
 
